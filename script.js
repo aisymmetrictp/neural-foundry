@@ -384,11 +384,11 @@ const CAT_COLORS = {
     nodes = PROJECTS.map((p, i) => {
       const col = CAT_COLORS[p.category] || CAT_COLORS.apps;
       const angle = (i / PROJECTS.length) * Math.PI * 2;
-      const clusterR = Math.min(W, H) * 0.38;
+      const clusterR = Math.min(W, H) * 0.42;
       return {
         ...p,
-        x: W / 2 + Math.cos(angle) * clusterR + (Math.random() - 0.5) * 80,
-        y: H / 2 + Math.sin(angle) * clusterR + (Math.random() - 0.5) * 80,
+        x: W * 0.1 + Math.random() * W * 0.8,
+        y: H * 0.1 + Math.random() * H * 0.8,
         vx: 0, vy: 0,
         r: (p.size || 1) * 24,
         color: col.fill,

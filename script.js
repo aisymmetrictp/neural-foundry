@@ -421,22 +421,33 @@ const CAT_COLORS = {
   }
 
   function simulate() {
-    const K = 0.025;
-    const REPEL = 8000;
-    const DAMPING = 0.85;
-    const CENTER_PULL = 0.005;
+    const K = 0.012;
+    const REPEL = 18000;
+    const DAMPING = 0.82;
+    const CENTER_PULL = 0.003;
+    const MIN_DIST_FACTOR = 2.8; // minimum distance = sum of radii * this factor
 
     nodes.forEach(n => {
       if (!n.visible) return;
       let fx = 0, fy = 0;
 
+      // Repulsion + collision avoidance
       nodes.forEach(m => {
         if (m === n || !m.visible) return;
         const dx = n.x - m.x;
         const dy = n.y - m.y;
         const dist2 = dx * dx + dy * dy || 1;
         const dist = Math.sqrt(dist2);
-        const f = REPEL / dist2;
+        const minDist = (n.r + m.r) * MIN_DIST_FACTOR;
+
+        // Standard repulsion
+        let f = REPEL / dist2;
+
+        // Extra strong push when overlapping
+        if (dist < minDist) {
+          f += (minDist - dist) * 2;
+        }
+
         fx += (dx / dist) * f;
         fy += (dy / dist) * f;
       });
@@ -448,8 +459,13 @@ const CAT_COLORS = {
         if (!other || !other.visible) return;
         const dx = other.x - n.x;
         const dy = other.y - n.y;
-        fx += dx * K;
-        fy += dy * K;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const minDist = (n.r + other.r) * MIN_DIST_FACTOR;
+        // Only attract if beyond minimum distance
+        if (dist > minDist) {
+          fx += dx * K;
+          fy += dy * K;
+        }
       });
 
       fx += (W / 2 - n.x) * CENTER_PULL;
@@ -460,7 +476,7 @@ const CAT_COLORS = {
       n.x += n.vx;
       n.y += n.vy;
 
-      const pad = n.r + 20;
+      const pad = n.r + 30;
       if (n.x < pad) { n.x = pad; n.vx *= -0.5; }
       if (n.x > W - pad) { n.x = W - pad; n.vx *= -0.5; }
       if (n.y < pad) { n.y = pad; n.vy *= -0.5; }

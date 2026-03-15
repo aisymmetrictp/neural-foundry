@@ -381,16 +381,50 @@ const CAT_COLORS = {
   let mouse = { x: -999, y: -999 };
 
   function buildNodes() {
-    nodes = PROJECTS.map((p, i) => {
+    // Sort by size (largest first) for center placement
+    const sorted = [...PROJECTS].sort((a, b) => (b.size || 1) - (a.size || 1));
+
+    // Place nodes in concentric rings
+    const cx = W / 2;
+    const cy = H / 2;
+    const nodeR = 24; // base radius multiplier
+
+    // Ring 1: top 4 (inner ring)
+    // Ring 2: next 6 (middle ring)
+    // Ring 3: remaining (outer ring)
+    const rings = [
+      { count: 4, radius: Math.min(W, H) * 0.14 },
+      { count: 6, radius: Math.min(W, H) * 0.28 },
+      { count: sorted.length - 10, radius: Math.min(W, H) * 0.42 }
+    ];
+
+    let idx = 0;
+    const positioned = [];
+
+    rings.forEach(ring => {
+      for (let i = 0; i < ring.count && idx < sorted.length; i++, idx++) {
+        const p = sorted[idx];
+        const angle = (i / ring.count) * Math.PI * 2 - Math.PI / 2;
+        const jitter = (Math.random() - 0.5) * 20;
+        positioned.push({
+          project: p,
+          x: cx + Math.cos(angle) * (ring.radius + jitter),
+          y: cy + Math.sin(angle) * (ring.radius + jitter)
+        });
+      }
+    });
+
+    nodes = positioned.map(item => {
+      const p = item.project;
       const col = CAT_COLORS[p.category] || CAT_COLORS.apps;
-      const angle = (i / PROJECTS.length) * Math.PI * 2;
-      const clusterR = Math.min(W, H) * 0.42;
       return {
         ...p,
-        x: W * 0.1 + Math.random() * W * 0.8,
-        y: H * 0.1 + Math.random() * H * 0.8,
+        x: item.x,
+        y: item.y,
+        targetX: item.x,
+        targetY: item.y,
         vx: 0, vy: 0,
-        r: (p.size || 1) * 24,
+        r: (p.size || 1) * nodeR,
         color: col.fill,
         glow: col.glow,
         dim: col.dim,
@@ -421,49 +455,40 @@ const CAT_COLORS = {
   }
 
   function simulate() {
-    const REPEL = 200000;
-    const DAMPING = 0.75;
-    const CENTER_PULL = 0.0005;
-    const MIN_GAP = 70; // minimum pixel gap between node edges
-
+    // Gentle collision avoidance only — positions are mostly fixed
     nodes.forEach(n => {
       if (!n.visible) return;
       let fx = 0, fy = 0;
 
-      // Pure repulsion — no spring attraction at all
       nodes.forEach(m => {
         if (m === n || !m.visible) return;
         const dx = n.x - m.x;
         const dy = n.y - m.y;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        const minDist = n.r + m.r + MIN_GAP;
+        const minDist = n.r + m.r + 50;
 
-        let f = REPEL / (dist * dist);
-
-        // Hard collision: very strong push when overlapping
         if (dist < minDist) {
-          f += (minDist - dist) * 8;
+          const push = (minDist - dist) * 0.3;
+          fx += (dx / dist) * push;
+          fy += (dy / dist) * push;
         }
-
-        fx += (dx / dist) * f;
-        fy += (dy / dist) * f;
       });
 
-      // No spring forces — edges are visual only, not physical
-      // Gentle center pull keeps everything on screen
-      fx += (W / 2 - n.x) * CENTER_PULL;
-      fy += (H / 2 - n.y) * CENTER_PULL;
+      // Spring back to target position
+      fx += (n.targetX - n.x) * 0.02;
+      fy += (n.targetY - n.y) * 0.02;
 
-      n.vx = (n.vx + fx * 0.15) * DAMPING;
-      n.vy = (n.vy + fy * 0.15) * DAMPING;
+      n.vx = (n.vx + fx) * 0.6;
+      n.vy = (n.vy + fy) * 0.6;
       n.x += n.vx;
       n.y += n.vy;
 
+      // Keep in bounds
       const pad = n.r + 30;
-      if (n.x < pad) { n.x = pad; n.vx *= -0.5; }
-      if (n.x > W - pad) { n.x = W - pad; n.vx *= -0.5; }
-      if (n.y < pad) { n.y = pad; n.vy *= -0.5; }
-      if (n.y > H - pad) { n.y = H - pad; n.vy *= -0.5; }
+      if (n.x < pad) n.x = pad;
+      if (n.x > W - pad) n.x = W - pad;
+      if (n.y < pad) n.y = pad;
+      if (n.y > H - pad) n.y = H - pad;
     });
   }
 

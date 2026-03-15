@@ -82,7 +82,7 @@ const PROJECTS = [
     stack: ['React', 'D3.js', 'OpenAI', 'REST APIs', 'Netlify'],
     build_speed: '1 week',
     impact: 'Foundation for 10+ client dashboard deployments. Reduces new dashboard build time by 70%.',
-    url: 'https://dashboards.aisymmetricsolutions.com/',
+    url: 'https://revint.aisymmetricsolutions.com/',
     connections: ['roi-calc', 'salesforce-intel', 'mfg-revenue', 'pe-cost-takeout'],
     size: 1.5
   },

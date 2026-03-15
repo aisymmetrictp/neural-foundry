@@ -421,50 +421,36 @@ const CAT_COLORS = {
   }
 
   function simulate() {
-    const K = 0.005;
-    const REPEL = 40000;
-    const DAMPING = 0.8;
-    const CENTER_PULL = 0.002;
+    const REPEL = 60000;
+    const DAMPING = 0.78;
+    const CENTER_PULL = 0.004;
+    const MIN_GAP = 50; // minimum pixel gap between node edges
 
     nodes.forEach(n => {
       if (!n.visible) return;
       let fx = 0, fy = 0;
 
-      // Strong repulsion + hard collision
+      // Pure repulsion — no spring attraction at all
       nodes.forEach(m => {
         if (m === n || !m.visible) return;
         const dx = n.x - m.x;
         const dy = n.y - m.y;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        const minDist = (n.r + m.r) + 40; // hard minimum gap of 40px between edges
+        const minDist = n.r + m.r + MIN_GAP;
 
         let f = REPEL / (dist * dist);
 
-        // Very strong collision push
+        // Hard collision: very strong push when overlapping
         if (dist < minDist) {
-          f += (minDist - dist) * 5;
+          f += (minDist - dist) * 8;
         }
 
         fx += (dx / dist) * f;
         fy += (dy / dist) * f;
       });
 
-      // Very weak spring — just enough to keep connected nodes loosely grouped
-      edges.forEach(e => {
-        let other = null;
-        if (e.src === n) other = e.tgt;
-        if (e.tgt === n) other = e.src;
-        if (!other || !other.visible) return;
-        const dx = other.x - n.x;
-        const dy = other.y - n.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const minDist = (n.r + other.r) + 60;
-        if (dist > minDist) {
-          fx += dx * K;
-          fy += dy * K;
-        }
-      });
-
+      // No spring forces — edges are visual only, not physical
+      // Gentle center pull keeps everything on screen
       fx += (W / 2 - n.x) * CENTER_PULL;
       fy += (H / 2 - n.y) * CENTER_PULL;
 

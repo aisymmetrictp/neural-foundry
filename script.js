@@ -421,37 +421,35 @@ const CAT_COLORS = {
   }
 
   function simulate() {
-    const K = 0.012;
-    const REPEL = 18000;
-    const DAMPING = 0.82;
-    const CENTER_PULL = 0.003;
-    const MIN_DIST_FACTOR = 2.8; // minimum distance = sum of radii * this factor
+    const K = 0.005;
+    const REPEL = 40000;
+    const DAMPING = 0.8;
+    const CENTER_PULL = 0.002;
 
     nodes.forEach(n => {
       if (!n.visible) return;
       let fx = 0, fy = 0;
 
-      // Repulsion + collision avoidance
+      // Strong repulsion + hard collision
       nodes.forEach(m => {
         if (m === n || !m.visible) return;
         const dx = n.x - m.x;
         const dy = n.y - m.y;
-        const dist2 = dx * dx + dy * dy || 1;
-        const dist = Math.sqrt(dist2);
-        const minDist = (n.r + m.r) * MIN_DIST_FACTOR;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const minDist = (n.r + m.r) + 40; // hard minimum gap of 40px between edges
 
-        // Standard repulsion
-        let f = REPEL / dist2;
+        let f = REPEL / (dist * dist);
 
-        // Extra strong push when overlapping
+        // Very strong collision push
         if (dist < minDist) {
-          f += (minDist - dist) * 2;
+          f += (minDist - dist) * 5;
         }
 
         fx += (dx / dist) * f;
         fy += (dy / dist) * f;
       });
 
+      // Very weak spring — just enough to keep connected nodes loosely grouped
       edges.forEach(e => {
         let other = null;
         if (e.src === n) other = e.tgt;
@@ -460,8 +458,7 @@ const CAT_COLORS = {
         const dx = other.x - n.x;
         const dy = other.y - n.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const minDist = (n.r + other.r) * MIN_DIST_FACTOR;
-        // Only attract if beyond minimum distance
+        const minDist = (n.r + other.r) + 60;
         if (dist > minDist) {
           fx += dx * K;
           fy += dy * K;

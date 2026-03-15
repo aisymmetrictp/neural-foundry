@@ -421,10 +421,10 @@ const CAT_COLORS = {
   }
 
   function simulate() {
-    const REPEL = 60000;
+    const REPEL = 120000;
     const DAMPING = 0.78;
-    const CENTER_PULL = 0.004;
-    const MIN_GAP = 50; // minimum pixel gap between node edges
+    const CENTER_PULL = 0.001;
+    const MIN_GAP = 60; // minimum pixel gap between node edges
 
     nodes.forEach(n => {
       if (!n.visible) return;

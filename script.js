@@ -384,13 +384,13 @@ const CAT_COLORS = {
     nodes = PROJECTS.map((p, i) => {
       const col = CAT_COLORS[p.category] || CAT_COLORS.apps;
       const angle = (i / PROJECTS.length) * Math.PI * 2;
-      const clusterR = Math.min(W, H) * 0.3;
+      const clusterR = Math.min(W, H) * 0.38;
       return {
         ...p,
-        x: W / 2 + Math.cos(angle) * clusterR + (Math.random() - 0.5) * 60,
-        y: H / 2 + Math.sin(angle) * clusterR + (Math.random() - 0.5) * 60,
+        x: W / 2 + Math.cos(angle) * clusterR + (Math.random() - 0.5) * 80,
+        y: H / 2 + Math.sin(angle) * clusterR + (Math.random() - 0.5) * 80,
         vx: 0, vy: 0,
-        r: (p.size || 1) * 18,
+        r: (p.size || 1) * 24,
         color: col.fill,
         glow: col.glow,
         dim: col.dim,
@@ -421,10 +421,10 @@ const CAT_COLORS = {
   }
 
   function simulate() {
-    const K = 0.04;
-    const REPEL = 3500;
+    const K = 0.025;
+    const REPEL = 8000;
     const DAMPING = 0.85;
-    const CENTER_PULL = 0.008;
+    const CENTER_PULL = 0.005;
 
     nodes.forEach(n => {
       if (!n.visible) return;
@@ -580,22 +580,23 @@ const CAT_COLORS = {
       ctx.lineWidth = isHovered ? 2 : 1;
       ctx.stroke();
 
-      const fontSize = Math.max(8, Math.min(11, r * 0.55));
-      ctx.fillStyle = 'rgba(255,255,255,0.95)';
-      ctx.font = `700 ${fontSize}px "Syne", sans-serif`;
+      // Draw label below the node
+      const fontSize = Math.max(9, Math.min(12, r * 0.45));
+      ctx.font = `600 ${fontSize}px "Inter", sans-serif`;
       ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
+      ctx.textBaseline = 'top';
+      ctx.fillStyle = isDimmed ? 'rgba(17,17,17,0.2)' : 'rgba(17,17,17,0.85)';
 
+      const labelY = n.y + r + 6;
       const words = n.title.split(' ');
-      if (words.length <= 2 || r < 15) {
-        const label = n.title.length > 12 ? n.title.substring(0, 11) + '\u2026' : n.title;
-        ctx.fillText(label, n.x, n.y);
+      if (words.length <= 2) {
+        ctx.fillText(n.title, n.x, labelY);
       } else {
         const mid = Math.ceil(words.length / 2);
         const line1 = words.slice(0, mid).join(' ');
         const line2 = words.slice(mid).join(' ');
-        ctx.fillText(line1, n.x, n.y - fontSize * 0.6);
-        ctx.fillText(line2, n.x, n.y + fontSize * 0.6);
+        ctx.fillText(line1, n.x, labelY);
+        ctx.fillText(line2, n.x, labelY + fontSize + 2);
       }
 
       ctx.restore();

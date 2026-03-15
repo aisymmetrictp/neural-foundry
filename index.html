@@ -38,7 +38,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Styles -->
 <link rel="stylesheet" href="styles.css">
@@ -46,13 +46,20 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="https://aisymmetricsolutions.com" class="nav-logo">
-    <img src="assets/images/logo-transparent.png" alt="Neural Foundry Logo" class="nav-logo-img">
-    AI<span>Symmetric</span>
-    <span class="nav-tag">/ Neural Foundry</span>
-  </a>
-  <a href="https://aisymmetricsolutions.com/#contact" class="nav-cta">Build With Us →</a>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://aisymmetricsolutions.com" class="nav-logo">
+      <img src="assets/images/logo-transparent.png" alt="Neural Foundry Logo" class="nav-logo-img">
+      AI<span class="brand-accent">Symmetric</span>
+      <span class="nav-tag">/ Neural Foundry</span>
+    </a>
+    <div class="nav-links">
+      <a href="#foundry">Foundry</a>
+      <a href="#velocity">Velocity</a>
+      <a href="#methodology">Approach</a>
+      <a href="https://aisymmetricsolutions.com/#contact" class="nav-cta">Start a Conversation</a>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -61,10 +68,10 @@
 
   <img src="assets/images/logo-transparent.png" alt="Neural Foundry" class="hero-logo">
 
-  <div class="hero-eyebrow">AISymmetric Neural Foundry — Intelligence at Velocity</div>
+  <div class="hero-eyebrow">AISymmetric Neural Foundry</div>
 
   <h1 class="hero-title">
-    The Forge of<br><span class="accent">Built Intelligence</span>
+    The Forge of<br><span class="gradient-text">Built Intelligence</span>
   </h1>
 
   <p class="hero-sub">
@@ -82,10 +89,12 @@
       <div class="stat-num">20+</div>
       <div class="stat-label">Systems Built</div>
     </div>
+    <div class="stat-divider"></div>
     <div class="stat">
       <div class="stat-num">6</div>
       <div class="stat-label">Categories</div>
     </div>
+    <div class="stat-divider"></div>
     <div class="stat">
       <div class="stat-num">48h</div>
       <div class="stat-label">Fastest Build</div>
@@ -100,49 +109,90 @@
 
 <!-- BUILD VELOCITY -->
 <section id="velocity">
-  <div class="section-header">
-    <div class="section-label">Build Velocity</div>
-    <h2 class="section-title">Engineered at AI Speed</h2>
-    <p class="section-desc">
-      AISymmetric combines strategy, engineering, data, and AI to ship
-      systems dramatically faster than traditional consulting firms.
-    </p>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Build Velocity</div>
+      <h2 class="section-title">Engineered at <span class="gradient-text">AI Speed</span></h2>
+      <p class="section-desc">
+        AISymmetric combines strategy, engineering, data, and AI to ship
+        systems dramatically faster than traditional consulting firms.
+      </p>
+    </div>
+    <div class="velocity-grid">
+      <div class="velocity-card">
+        <div class="velocity-time">24 hrs</div>
+        <div class="velocity-label">Prototype</div>
+      </div>
+      <div class="velocity-card">
+        <div class="velocity-time">48 hrs</div>
+        <div class="velocity-label">Working System</div>
+      </div>
+      <div class="velocity-card">
+        <div class="velocity-time">5 days</div>
+        <div class="velocity-label">Production Ready</div>
+      </div>
+      <div class="velocity-card">
+        <div class="velocity-time">2 weeks</div>
+        <div class="velocity-label">Enterprise Platform</div>
+      </div>
+    </div>
   </div>
-  <div class="velocity-grid">
-    <div class="velocity-card">
-      <div class="velocity-time">24 hrs</div>
-      <div class="velocity-label">Prototype</div>
+</section>
+
+<!-- WEB PORTFOLIO BANNER -->
+<section class="portfolio-banner">
+  <div class="container">
+    <div class="portfolio-inner">
+      <div class="portfolio-content">
+        <span class="section-tag">Web Portfolio</span>
+        <h2 class="portfolio-title">See our <span class="gradient-text">work in action</span></h2>
+        <p class="portfolio-subtitle">Explore the websites, platforms, and digital experiences we've designed and built for clients across industries.</p>
+      </div>
+      <a href="https://webportfolio.aisymmetricsolutions.com" target="_blank" rel="noopener" class="btn-portfolio">
+        View Portfolio
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
-    <div class="velocity-card">
-      <div class="velocity-time">48 hrs</div>
-      <div class="velocity-label">Working System</div>
-    </div>
-    <div class="velocity-card">
-      <div class="velocity-time">5 days</div>
-      <div class="velocity-label">Production Ready</div>
-    </div>
-    <div class="velocity-card">
-      <div class="velocity-time">2 weeks</div>
-      <div class="velocity-label">Enterprise Platform</div>
+  </div>
+</section>
+
+<!-- SUCCESSFUL LABS BANNER -->
+<section class="portfolio-banner">
+  <div class="container">
+    <div class="portfolio-inner labs-inner">
+      <div class="portfolio-content">
+        <div class="labs-badge">
+          <span class="pulse-dot"></span>
+          AI Boutique Lab
+        </div>
+        <h2 class="portfolio-title">The <span class="gradient-text">Successful Labs</span></h2>
+        <p class="portfolio-subtitle">Precision-crafted AI experiments, prototypes, and intelligent systems — from concept to production in days, not months. Where boutique meets breakthrough.</p>
+      </div>
+      <a href="https://aisymmetricsolutions.com/#case-studies" target="_blank" rel="noopener" class="btn-portfolio">
+        Explore Labs
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- FOUNDRY GRAPH -->
 <section id="foundry">
-  <div class="section-header">
-    <div class="section-label">Intelligence Network</div>
-    <h2 class="section-title">The Neural Foundry</h2>
-  </div>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Intelligence Network</div>
+      <h2 class="section-title">The <span class="gradient-text">Neural Foundry</span></h2>
+    </div>
 
-  <!-- Filters -->
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all">All Systems</button>
-    <button class="filter-btn" data-filter="apps">Applications</button>
-    <button class="filter-btn" data-filter="data">Data & Intelligence</button>
-    <button class="filter-btn" data-filter="ai">AI Agents</button>
-    <button class="filter-btn" data-filter="games">Games</button>
-    <button class="filter-btn" data-filter="web">Web Experiences</button>
+    <!-- Filters -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Systems</button>
+      <button class="filter-btn" data-filter="apps">Applications</button>
+      <button class="filter-btn" data-filter="data">Data & Intelligence</button>
+      <button class="filter-btn" data-filter="ai">AI Agents</button>
+      <button class="filter-btn" data-filter="games">Games</button>
+      <button class="filter-btn" data-filter="web">Web Experiences</button>
+    </div>
   </div>
 
   <!-- Graph Canvas -->
@@ -162,62 +212,66 @@
 
 <!-- METHODOLOGY -->
 <section id="methodology">
-  <div class="section-header">
-    <div class="section-label">How We Build</div>
-    <h2 class="section-title">From Signal to System</h2>
-  </div>
-  <div class="method-steps">
-    <div class="method-step">
-      <div class="method-num">01</div>
-      <div class="method-icon">&#9678;</div>
-      <div class="method-name">Strategy</div>
-      <div class="method-desc">Map enterprise landscape and define measurable outcomes.</div>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">How We Build</div>
+      <h2 class="section-title">From Signal to <span class="gradient-text">System</span></h2>
     </div>
-    <div class="method-step">
-      <div class="method-num">02</div>
-      <div class="method-icon">&#11041;</div>
-      <div class="method-name">Architecture</div>
-      <div class="method-desc">Design scalable AI blueprints and system integrations.</div>
-    </div>
-    <div class="method-step">
-      <div class="method-num">03</div>
-      <div class="method-icon">&#9889;</div>
-      <div class="method-name">AI Engineering</div>
-      <div class="method-desc">Build intelligent agents, automation, and data pipelines.</div>
-    </div>
-    <div class="method-step">
-      <div class="method-num">04</div>
-      <div class="method-icon">&#9672;</div>
-      <div class="method-name">Data Systems</div>
-      <div class="method-desc">Connect, clean, and activate your data assets.</div>
-    </div>
-    <div class="method-step">
-      <div class="method-num">05</div>
-      <div class="method-icon">&#9650;</div>
-      <div class="method-name">Deployment</div>
-      <div class="method-desc">Ship to production with enterprise-grade security.</div>
-    </div>
-    <div class="method-step">
-      <div class="method-num">06</div>
-      <div class="method-icon">&#8734;</div>
-      <div class="method-name">Scale</div>
-      <div class="method-desc">Evolve and expand as your organization grows.</div>
+    <div class="method-steps">
+      <div class="method-step">
+        <div class="method-num">01</div>
+        <div class="method-icon">&#9678;</div>
+        <div class="method-name">Strategy</div>
+        <div class="method-desc">Map enterprise landscape and define measurable outcomes.</div>
+      </div>
+      <div class="method-step">
+        <div class="method-num">02</div>
+        <div class="method-icon">&#11041;</div>
+        <div class="method-name">Architecture</div>
+        <div class="method-desc">Design scalable AI blueprints and system integrations.</div>
+      </div>
+      <div class="method-step">
+        <div class="method-num">03</div>
+        <div class="method-icon">&#9889;</div>
+        <div class="method-name">AI Engineering</div>
+        <div class="method-desc">Build intelligent agents, automation, and data pipelines.</div>
+      </div>
+      <div class="method-step">
+        <div class="method-num">04</div>
+        <div class="method-icon">&#9672;</div>
+        <div class="method-name">Data Systems</div>
+        <div class="method-desc">Connect, clean, and activate your data assets.</div>
+      </div>
+      <div class="method-step">
+        <div class="method-num">05</div>
+        <div class="method-icon">&#9650;</div>
+        <div class="method-name">Deployment</div>
+        <div class="method-desc">Ship to production with enterprise-grade security.</div>
+      </div>
+      <div class="method-step">
+        <div class="method-num">06</div>
+        <div class="method-icon">&#8734;</div>
+        <div class="method-name">Scale</div>
+        <div class="method-desc">Evolve and expand as your organization grows.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <a href="https://aisymmetricsolutions.com" class="footer-logo">
-    <img src="assets/images/logo-transparent.png" alt="AISymmetric" class="footer-logo-img">
-    AISymmetric
-  </a>
-  <div class="footer-links">
-    <a href="https://aisymmetricsolutions.com/#services" class="footer-link">Services</a>
-    <a href="https://aisymmetricsolutions.com/#case-studies" class="footer-link">Case Studies</a>
-    <a href="https://aisymmetricsolutions.com/#contact" class="footer-link">Contact</a>
+  <div class="footer-inner">
+    <a href="https://aisymmetricsolutions.com" class="footer-logo">
+      <img src="assets/images/logo-transparent.png" alt="AISymmetric" class="footer-logo-img">
+      AISymmetric
+    </a>
+    <div class="footer-links">
+      <a href="https://aisymmetricsolutions.com/#services" class="footer-link">Services</a>
+      <a href="https://aisymmetricsolutions.com/#case-studies" class="footer-link">Case Studies</a>
+      <a href="https://aisymmetricsolutions.com/#contact" class="footer-link">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 AISymmetric. All rights reserved.</div>
   </div>
-  <div class="footer-copy">&copy; 2026 AISymmetric. All rights reserved.</div>
 </footer>
 
 <!-- DETAIL PANEL -->

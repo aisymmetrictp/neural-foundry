@@ -271,7 +271,7 @@ const CAT_COLORS = {
 // NAV SCROLL EFFECT
 // ─────────────────────────────────────────────
 (function navScroll() {
-  const nav = document.querySelector('nav');
+  const nav = document.querySelector('.nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
@@ -289,7 +289,7 @@ const CAT_COLORS = {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  document.querySelectorAll('.section-header, .velocity-card, .method-step, .filter-bar, .graph-legend').forEach(el => {
+  document.querySelectorAll('.section-header, .velocity-card, .method-step, .filter-bar, .graph-legend, .portfolio-inner').forEach(el => {
     el.classList.add('reveal');
     observer.observe(el);
   });
@@ -335,7 +335,7 @@ const CAT_COLORS = {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(96,165,250,${p.opacity})`;
+      ctx.fillStyle = `rgba(59,130,246,${p.opacity * 0.5})`;
       ctx.fill();
     });
 
@@ -348,7 +348,7 @@ const CAT_COLORS = {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(96,165,250,${0.08 * (1 - dist / 100)})`;
+          ctx.strokeStyle = `rgba(59,130,246,${0.06 * (1 - dist / 100)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -514,19 +514,19 @@ const CAT_COLORS = {
         ctx.beginPath();
         ctx.moveTo(e.src.x, e.src.y);
         ctx.lineTo(e.tgt.x, e.tgt.y);
-        ctx.strokeStyle = `rgba(96,165,250,${opacity})`;
+        ctx.strokeStyle = `rgba(59,130,246,${opacity})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(96,165,250,0.9)';
+        ctx.fillStyle = 'rgba(59,130,246,0.9)';
         ctx.fill();
       } else {
         ctx.beginPath();
         ctx.moveTo(e.src.x, e.src.y);
         ctx.lineTo(e.tgt.x, e.tgt.y);
-        ctx.strokeStyle = `rgba(96,165,250,${opacity})`;
+        ctx.strokeStyle = `rgba(59,130,246,${opacity})`;
         ctx.lineWidth = 0.8;
         ctx.stroke();
       }
@@ -576,12 +576,12 @@ const CAT_COLORS = {
 
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-      ctx.strokeStyle = isHovered ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.15)';
+      ctx.strokeStyle = isHovered ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.25)';
       ctx.lineWidth = isHovered ? 2 : 1;
       ctx.stroke();
 
       const fontSize = Math.max(8, Math.min(11, r * 0.55));
-      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
       ctx.font = `700 ${fontSize}px "Syne", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';

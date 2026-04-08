@@ -817,6 +817,46 @@ const CAT_COLORS = {
 })();
 
 // ─────────────────────────────────────────────
+// ROLLING COUNTER ANIMATION
+// ─────────────────────────────────────────────
+(function counterAnimation() {
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-count'));
+    const duration = 2000;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target;
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  const metrics = document.querySelector('.hero-metrics');
+  if (!metrics) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        metrics.querySelectorAll('.metric-value[data-count]').forEach(animateCounter);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(metrics);
+})();
+
+// ─────────────────────────────────────────────
 // HERO CANVAS — particle field
 // ─────────────────────────────────────────────
 (function heroCanvas() {

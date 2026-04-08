@@ -469,13 +469,16 @@ img { max-width: 100%; }
   transition: color 0.2s;
 }
 
-.legend-item:hover { color: var(--graphite); }
+.legend-item:hover { color: var(--graphite); cursor: pointer; }
+.legend-item.active { color: var(--graphite); font-weight: 700; }
+.legend-item.active .legend-dot { transform: scale(1.4); box-shadow: 0 0 6px currentColor; }
 
 .legend-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 /* ── PORTFOLIO BANNERS ── */

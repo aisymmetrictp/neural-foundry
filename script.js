@@ -1234,15 +1234,35 @@ const CAT_COLORS = {
     if (e.key === 'Escape') closePanel();
   });
 
-  // Filters
+  // Shared filter function
+  function applyFilter(filter) {
+    activeFilter = filter;
+    // Sync filter buttons
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === filter);
+    });
+    // Sync legend items
+    document.querySelectorAll('.legend-item[data-filter]').forEach(item => {
+      item.classList.toggle('active', item.dataset.filter === filter);
+    });
+    // Apply to nodes
+    nodes.forEach(n => {
+      n.visible = (filter === 'all' || n.category === filter);
+    });
+  }
+
+  // Filter button clicks
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilter = btn.dataset.filter;
-      nodes.forEach(n => {
-        n.visible = (activeFilter === 'all' || n.category === activeFilter);
-      });
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  // Legend item clicks — toggle: click same = show all, click different = filter
+  document.querySelectorAll('.legend-item[data-filter]').forEach(item => {
+    item.addEventListener('click', () => {
+      const filter = item.dataset.filter;
+      applyFilter(activeFilter === filter ? 'all' : filter);
     });
   });
 

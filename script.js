@@ -841,19 +841,19 @@ const CAT_COLORS = {
     requestAnimationFrame(update);
   }
 
-  const metrics = document.querySelector('.hero-metrics');
-  if (!metrics) return;
+  const stats = document.querySelector('.hero-stats');
+  if (!stats) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        metrics.querySelectorAll('.metric-value[data-count]').forEach(animateCounter);
+        stats.querySelectorAll('.stat-value[data-count]').forEach(animateCounter);
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.3 });
 
-  observer.observe(metrics);
+  observer.observe(stats);
 })();
 
 // ─────────────────────────────────────────────
